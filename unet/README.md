@@ -17,7 +17,12 @@ This is a activation defined by myself. It has a function curve similar to SiLU.
 <p align='center'><img src='imgs/pysilu_curve.png'></p>
 
 The formula of this activation is as follows:
-$$pysilu(x) =  \begin{cases} x& \text{x>=0} \\ \frac{x}{1+x^2}& \text{x<0} \end{cases}$$
+
+$$pysilu(x) = \begin{cases} 
+x & \text{if } x \geq 0 \\
+\frac{x}{1+x^2} & \text{if } x < 0 
+\end{cases}$$
+
 
 See the codes in `activation.py`. Uncomment the line `# utils.show_activation_curve(pysilu)`. You can get this figure by run: `python activation.py`
 
@@ -55,13 +60,15 @@ See the codes in `activation.py`. Uncomment the line `# utils.show_activation_cu
 
 ### Accuracy
 The formula of accuracy is as follows:
+
 $$ acc = \frac{TP+TN}{TP+TN+FP+FN} $$
 
 I assume that you all know this metric. So there is no more introduce about accuracy.
 
 ### Dice-score
 The formula of accuracy is as follows:
-$$ dice=\frac{2*TP}{2*TP + FP + FN} $$
+
+$$ dice=\frac{2\times TP}{2\times TP + FP + FN} $$
 
 Here is a implementation of dice-score with pytorch.
 
@@ -98,7 +105,7 @@ Some inference result visualization.
 <p align="center"><img src="./imgs/infer_1.png"></p>
 <p align="center"><img src="./imgs/infer_2.png"></p>
 
-## Referenc
+## Reference
 - <a href='https://medium.com/mlearning-ai/understanding-evaluation-metrics-in-medical-image-segmentation-d289a373a3f'>understanding-evaluation-metrics-in-medical-image-segmentation</a>
 
 
@@ -110,7 +117,7 @@ Some inference result visualization.
   year = {2023},
   publisher = {GitHub},
   journal = {GitHub repository},
-  howpublished = {\url{-}},
+  howpublished = {\url{https://github.com/AllenWrong/From-Scratch/unet}},
 }
 ```
 
@@ -128,4 +135,4 @@ If you have some ideas youd like to bring to life, please email me.
 - Follow me on <a href='https://www.linkedin.com/in/zhongchao-guan-aa3288194/'>LinkedIn</a>.
 
 ## Licence
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/AllenWrong/nand2tetris)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/AllenWrong/From-Scratch/unet)
