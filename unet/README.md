@@ -50,7 +50,6 @@ See the codes in `activation.py`. Uncomment the line `# utils.show_activation_cu
 4. Prepare you train data and test data with `process_data.py`. This will output two csv file under the data directory(train_desc.csv, test_desc.csv). But you can also use my files.
 5. Make necessary directories.
    ```bash
-   mkdir ckps
    mkdir imgs
    mkdir metric_logs
    ```
