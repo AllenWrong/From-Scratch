@@ -3,14 +3,24 @@
 more complex loss functions and interesting ideas are welcomed.
 
 ## Table of Contents
-  *[TODO](#todo)
-  *[Some Complex function(x, y) visualization](#some-complex-functionx-y-visualization)
-  *[Experiment Result](#experiment-result)
-  *[Usage](#usage)
-  *[Citation](#citation)
-  *[Acknowledgments](#acknowledgments)
-  *[Contact With Me](#contact-with-me)
-  *[License](#license)
+- [Title](#title)
+  - [Table of Contents](#table-of-contents)
+  - [TODO](#todo)
+  - [Some Complex function(x, y) visualization.](#some-complex-functionx-y-visualization)
+    - [Formular of the functions](#formular-of-the-functions)
+  - [Experiment Result](#experiment-result)
+    - [The behavior of different optimizer on those functions.](#the-behavior-of-different-optimizer-on-those-functions)
+    - [Different beta value of adam in loss2](#different-beta-value-of-adam-in-loss2)
+    - [Different steps in rastrigin of SGD](#different-steps-in-rastrigin-of-sgd)
+    - [Different init value of complex](#different-init-value-of-complex)
+    - [Different beta value of momentum in himmelblau](#different-beta-value-of-momentum-in-himmelblau)
+    - [Different beta value of adam in himmelblau](#different-beta-value-of-adam-in-himmelblau)
+    - [Different lr of SGD in mccormick](#different-lr-of-sgd-in-mccormick)
+  - [Usage](#usage)
+  - [Citation](#citation)
+  - [Acknowledgments](#acknowledgments)
+  - [Contact With Me](#contact-with-me)
+  - [License](#license)
 
 
 ## TODO
