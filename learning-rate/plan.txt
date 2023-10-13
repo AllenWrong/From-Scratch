@@ -1,0 +1,14 @@
+target: Explore Different Optimization Algorithm
+
+
+research:
+
+
+
+plan:
+
+- understand the params and the object function.
+- reproduce the figure in Francesco Orabona lecture.
+
+
+report:
