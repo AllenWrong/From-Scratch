@@ -1,9 +1,9 @@
-# Title
+# Explore the Behavior of Optimizer
 
 more complex loss functions and interesting ideas are welcomed.
 
 ## Table of Contents
-- [Title](#title)
+- [Explore the Behavior of Optimizer](#explore-the-behavior-of-optimizer)
   - [Table of Contents](#table-of-contents)
   - [TODO](#todo)
   - [Some Complex function(x, y) visualization.](#some-complex-functionx-y-visualization)
@@ -11,10 +11,10 @@ more complex loss functions and interesting ideas are welcomed.
   - [Experiment Result](#experiment-result)
     - [The behavior of different optimizer on those functions.](#the-behavior-of-different-optimizer-on-those-functions)
     - [Different beta value of adam in loss2](#different-beta-value-of-adam-in-loss2)
+    - [Different beta value of adam in himmelblau](#different-beta-value-of-adam-in-himmelblau)
     - [Different steps in rastrigin of SGD](#different-steps-in-rastrigin-of-sgd)
     - [Different init value of complex](#different-init-value-of-complex)
     - [Different beta value of momentum in himmelblau](#different-beta-value-of-momentum-in-himmelblau)
-    - [Different beta value of adam in himmelblau](#different-beta-value-of-adam-in-himmelblau)
     - [Different lr of SGD in mccormick](#different-lr-of-sgd-in-mccormick)
   - [Usage](#usage)
   - [Citation](#citation)
@@ -24,6 +24,7 @@ more complex loss functions and interesting ideas are welcomed.
 
 
 ## TODO
+- **Fix Adam result in experiment result table.**
 - stable the adam optimzier. Exist many numberical problem.
 - add Adamw optimizer
 - add nestrove optimizer
@@ -100,7 +101,57 @@ $$f(x, y) = \sin(x + y) + (x - y)^2 - 1.5x + 2.5y + 1$$
 | mccormick | <img src='./imgs/opts/mccormick_SGD_0.1_200.png'> | <img src='./imgs/opts/mccormick_Momentum_0.01_200.png'> | TBD |
 
 
+**As you can see, Adam optimizer does not work well for those functions. But does this means that adam is not suitable for simple functions? Let's tune it's beta parameters in the following content.**
+
 ### Different beta value of adam in loss2
+`loss2` is a simple function. But Adam works badly. Let's tune the beta parameters of adam to see if Adam can work better. **I guess it can.**
+
+**1. Just tune the beta1 to see what happens**
+Let: `lr=1e-2, beta2=0.999, epochs=200`
+
+| beta1=0.5 | beta1=0.6 | beta1=0.7 | beta1=0.8 | beta1=0.9 |
+|-----|-----|-----|-----|-----|
+| <img src='./imgs/tune_adam/loss2_Adam_0.01_0.5_0.999_200.png'> | <img src='./imgs/tune_adam/loss2_Adam_0.01_0.6_0.999_200.png'> | <img src='./imgs/tune_adam/loss2_Adam_0.01_0.7_0.999_200.png'> | <img src='./imgs/tune_adam/loss2_Adam_0.01_0.8_0.999_200.png'> | <img src='./imgs/tune_adam/loss2_Adam_0.01_0.9_0.999_200.png'> |
+
+**beta1=0.8** works well. Let's peforming a fine-grained tuning.
+| beta1=0.8 | beta1=0.81 | beta1=0.805 | beta1=0.85 |
+|-----|-----|-----|-----|
+| <img src='./imgs/tune_adam/loss2_Adam_0.01_0.8_0.999_200.png'> | <img src='./imgs/tune_adam/loss2_Adam_0.01_0.81_0.999_200.png'> | <img src='./imgs/tune_adam/loss2_Adam_0.01_0.805_0.999_200.png'> | <img src='./imgs/tune_adam/loss2_Adam_0.01_0.85_0.999_200.png'> |
+
+**beta1=0.81** works well. It can be seen that the beta1 control the existing trend. If beta1 is large, it will along the old trend. If beta1 is small, it will do adjust according the current gradient.
+
+**2. Let tune the beta2 to see if there are any surprises.**
+Let: `lr=1e-2, beta1=0.81, epochs=200`
+
+|beta2 = 0.8| beta2=0.9 | beta2=0.99 | beta2=0.999 | beta2=0.9999 |
+|-----|-----|-----|-----|-----|
+| <img src='./imgs/tune_adam/loss2_Adam_0.01_0.81_0.8_200.png'> | <img src='./imgs/tune_adam/loss2_Adam_0.01_0.81_0.9_200.png'> | <img src='./imgs/tune_adam/loss2_Adam_0.01_0.81_0.99_200.png'> | <img src='./imgs/tune_adam/loss2_Adam_0.01_0.81_0.999_200.png'> | <img src='./imgs/tune_adam/loss2_Adam_0.01_0.81_0.9999_200.png'> |
+
+My explanation is beta2 controls the step size of optimizer, determining how far it will move along the trend. seems that `beta2=0.999` is a nice choice.
+
+Util now, as we can see, adam moves so slowly. How about increase it's learning rate? Let `beta1=0.81, beta2=0.999, epochs=200`.
+
+| lr=0.01 | lr=0.03 |
+|----|----|
+| <img src='./imgs/tune_adam/loss2_Adam_0.01_0.81_0.999_200.png'> | <img src='./imgs/tune_adam/loss2_Adam_0.03_0.81_0.999_200.png'> |
+
+We can see that increase learning rate is not a better choice.
+
+**3. Increase epochs.**
+Let `lr=0.01, beta1=0.81, beta2=0.999`.
+
+| epochs=200 | epochs=400 | epochs=800 | epochs=1000 |
+|----|----|----|----|
+| <img src='./imgs/tune_adam/loss2_Adam_0.01_0.81_0.999_200.png'> | <img src='./imgs/tune_adam/loss2_Adam_0.01_0.81_0.999_400.png'> | <img src='./imgs/tune_adam/loss2_Adam_0.01_0.81_0.999_800.png'> | <img src='./imgs/tune_adam/loss2_Adam_0.01_0.81_0.999_1000.png'> |
+
+**We make it.** My guess is right. But this also proves that, no matter how we tune the parameters, Adam converges slower than SGD on simple problems. Perhaps there is a better way to make Adam work better in such straightforward cases, or perhaps not, but I don't know it for now.
+
+
+
+### Different beta value of adam in himmelblau
+
+
+
 
 ### Different steps in rastrigin of SGD
 
@@ -108,7 +159,7 @@ $$f(x, y) = \sin(x + y) + (x - y)^2 - 1.5x + 2.5y + 1$$
 
 ### Different beta value of momentum in himmelblau
 
-### Different beta value of adam in himmelblau
+
 
 ### Different lr of SGD in mccormick
 

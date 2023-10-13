@@ -4,6 +4,7 @@ from optim import *
 from utils import F
 import utils
 from argparse import ArgumentParser
+import os
 
 
 def train(x, y, epochs, loss_fn, opt, grad_fn):
@@ -116,13 +117,18 @@ def get_parser(parser: ArgumentParser):
         default='white',
         type=str
     )
+    parser.add_argument(
+        '--out_dir',
+        default='./imgs/opts',
+        type=str
+    )
     return parser
 
 
 if __name__ == "__main__":
     args = get_parser(ArgumentParser()).parse_args()
     # {loss_fn}_{opt}_{lr}_{m}_{epochs}
-    save_path = f'./imgs/opts/{args.loss_fn}_{args.opt}_{args.lr}'
+    save_path = os.path.join(args.out_dir, f"{args.loss_fn}_{args.opt}_{args.lr}")
     if args.beta2 is not None and args.beta2 is not None:
         save_path = save_path + f"_{args.beta1}_{args.beta2}"
         opt = eval(args.opt)(lr=args.lr, beta1=args.beta1, beta2=args.beta2)
