@@ -47,7 +47,10 @@ def one_exp(
     cbar.set_label('Loss Value', rotation=270, labelpad=15)
     
     for i, (x_c, y_c) in enumerate(coord):
-        plt.plot(x_c, y_c, '+', color=p_color)
+        if i == len(coord) - 1:
+            plt.plot(x_c, y_c, 'x', color='red')
+        else:
+            plt.plot(x_c, y_c, 'x', color=p_color)
     plt.title(f"Final Loss: {loss[-1]}")
     if save_img_path is not None:
         plt.savefig(save_img_path)

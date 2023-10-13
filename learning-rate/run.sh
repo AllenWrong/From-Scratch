@@ -1,6 +1,6 @@
 python demo.py \
   --opt Adam \
-  --loss_fn mccormick \
+  --loss_fn himmelblau \
   --lr 1e-3 \
   --epochs 200 \
   --r_min -10 \

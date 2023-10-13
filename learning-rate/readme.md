@@ -11,10 +11,10 @@ more complex loss functions and interesting ideas are welcomed.
   - [Experiment Result](#experiment-result)
     - [The behavior of different optimizer on those functions.](#the-behavior-of-different-optimizer-on-those-functions)
     - [Different beta value of adam in loss2](#different-beta-value-of-adam-in-loss2)
-    - [Different beta value of adam in himmelblau](#different-beta-value-of-adam-in-himmelblau)
+    - [Explore of adam in himmelblau function](#explore-of-adam-in-himmelblau-function)
+    - [Explore Adam in rastrigin function](#explore-adam-in-rastrigin-function)
     - [Different steps in rastrigin of SGD](#different-steps-in-rastrigin-of-sgd)
     - [Different init value of complex](#different-init-value-of-complex)
-    - [Different beta value of momentum in himmelblau](#different-beta-value-of-momentum-in-himmelblau)
     - [Different lr of SGD in mccormick](#different-lr-of-sgd-in-mccormick)
   - [Usage](#usage)
   - [Citation](#citation)
@@ -24,11 +24,11 @@ more complex loss functions and interesting ideas are welcomed.
 
 
 ## TODO
-- **Fix Adam result in experiment result table.**
 - stable the adam optimzier. Exist many numberical problem.
 - add Adamw optimizer
 - add nestrove optimizer
 - generate gif
+- document
 
 ## Some Complex function(x, y) visualization.
 
@@ -146,35 +146,101 @@ Let `lr=0.01, beta1=0.81, beta2=0.999`.
 
 **We make it.** My guess is right. But this also proves that, no matter how we tune the parameters, Adam converges slower than SGD on simple problems. Perhaps there is a better way to make Adam work better in such straightforward cases, or perhaps not, but I don't know it for now.
 
+### Explore of adam in himmelblau function
+The above experiment result show that Adam does not converge in himmelblau function. So the first I want to lower the learning rate.
 
+**1. lower learning rate**
+Let `beta1=0.9, beta2=0.999, epochs=200`.
+| lr=1e-4 | lr=3e-4 | lr=1e-5 | lr=3e-5 |
+|----|----|----|----|
+| <img src='./imgs/tune_adam/himmelblau_Adam_0.0001_200.png'> | <img src='./imgs/tune_adam/himmelblau_Adam_0.0003_200.png'> | <img src='./imgs/tune_adam/himmelblau_Adam_1e-05_200.png'> | <img src='./imgs/tune_adam/himmelblau_Adam_3e-05_200.png'> |
 
-### Different beta value of adam in himmelblau
+Learning rate has an important influence on this optimizationi process. 1e-4 is a better choice.
 
+### Explore Adam in rastrigin function
 
+"The Rastrigin function has many local optima, making it a challenging optimization problem. Now, let's see if Adam can optimize this problem effectively."
+
+**1. Increase Epochs**
+The above experimental result shows that Adam can reach the optimal point if we increase epochs. Let's give it a try. Let: 'lr=0.01, epochs=300, init_x=5, init_y=5, beta1 in Adam is 0.9, beta2 in Adam in 0.999.'
+
+| epochs=300 | epochs=600 |
+|----|----|
+| <img src='./imgs/tune_adam/rastrigin_Adam_0.01_300.png'> | <img src='./imgs/tune_adam/rastrigin_Adam_0.01_600.png'> |
+
+As we can see, increasing the epochs is not helpful. Another singal that experimental result shows is Adam may not have enough momentum to reach the optimal. Let's tune the beta1 parameter.
+
+**2. Increase beta1**
+
+Let: `lr=0.01, epochs=300, init_x=5, init_y=5, beta2=0.999.`
+
+| beta1=0.91 | beta1=0.92 | beta1=0.93 | beta1=0.94 |
+|----|----|----|----|
+| <img src='./imgs/tune_adam/rastrigin_Adam_0.01_0.91_0.999_300.png'> | <img src='./imgs/tune_adam/rastrigin_Adam_0.01_0.92_0.999_300.png'> | <img src='./imgs/tune_adam/rastrigin_Adam_0.01_0.93_0.999_300.png'> | <img src='./imgs/tune_adam/rastrigin_Adam_0.01_0.94_0.999_300.png'> |
+
+| beta1=0.95 | beta1=0.96 | beta1=0.97 | beta1=0.98 |
+|----|----|----|----|
+| <img src='./imgs/tune_adam/rastrigin_Adam_0.01_0.95_0.999_300.png'> | <img src='./imgs/tune_adam/rastrigin_Adam_0.01_0.96_0.999_300.png'> | <img src='./imgs/tune_adam/rastrigin_Adam_0.01_0.97_0.999_300.png'> | <img src='./imgs/tune_adam/rastrigin_Adam_0.01_0.98_0.999_300.png'> |
+
+It seems that `beta1=0.98` is a better choice. Let's give it a fine-grained try. 
+
+| beta1=0.98 | beta1=0.983 | beta1=0.985 | beta1=0.99 |
+|----|----|----|----|
+| <img src='./imgs/tune_adam/rastrigin_Adam_0.01_0.98_0.999_300.png'> | <img src='./imgs/tune_adam/rastrigin_Adam_0.01_0.983_0.999_300.png'> | <img src='./imgs/tune_adam/rastrigin_Adam_0.01_0.985_0.999_300.png'> | <img src='./imgs/tune_adam/rastrigin_Adam_0.01_0.99_0.999_300.png'> |
+
+The above table experiments proves that Adam may not have enough momentum to reach the optimal is correct. **Another noteworthy detail is just a slight change of beta1 can make a significant difference.**
 
 
 ### Different steps in rastrigin of SGD
 
 ### Different init value of complex
 
-### Different beta value of momentum in himmelblau
-
-
-
 ### Different lr of SGD in mccormick
 
 ## Usage
 
+**1. Clone the repository**
+
+```bash
+git clone git@github.com:AllenWrong/From-Scratch.git
+cd From-Scratch/learning-rate
+```
+
+**2. Run the Following command to have a first try**
+
+```bash
+python demo.py \
+  --opt SGD \
+  --loss_fn loss1 \
+  --lr 1e-2 \
+  --epochs 200 \
+  --r_min -10 \
+  --r_max 10 \
+  --init_x 5 \
+  --init_y 5
+```
+
+The output images are saved in `./imgs` directory.
+
+**3. Run the following command to plot a function contour**
+
+```bash
+python show_contour.py \
+  --fn loss1 \
+  --rmin -10 \
+  --rmax 10
+```
+
 ## Citation
 
 ```
-@misc{xxx,
+@misc{Explore the Behavior of Optimizer,
   author = {Zhongchao, Guan},
-  title = {xxx},
+  title = {Explore the Behavior of Optimizer},
   year = {2023},
   publisher = {GitHub},
   journal = {GitHub repository},
-  howpublished = {\url{https://github.com/AllenWrong/}},
+  howpublished = {\url{https://github.com/AllenWrong/From-Scratch/learning-rate}},
 }
 ```
 
