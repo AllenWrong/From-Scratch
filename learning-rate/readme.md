@@ -44,28 +44,36 @@ In this repository, I will use the following complex functions to explore the be
 ### Formular of the functions
 
 **loss1**
-$$ f(x, y) = x^2 + y^2 $$
+
+$$f(x, y) = x^2 + y^2$$
 
 **loss2**
-\[f(x, y)=0.5x^2 + 10y^2 + x + 2y\]
+
+$$f(x, y)=0.5x^2 + 10y^2 + x + 2y$$
 
 **booth**:
-\[f(x, y) = (x + 2y - 7)^2 + (2x + y - 5)^2\]
+
+$$f(x, y) = (x + 2y - 7)^2 + (2x + y - 5)^2$$
 
 **rastrigin**：
-\[f(x, y) = 20 + x^2 - 10 \cos(2\pi x) + y^2 - 10 \cos(2\pi y)\]
+
+$$f(x, y) = 20 + x^2 - 10 \cos(2\pi x) + y^2 - 10 \cos(2\pi y)$$
 
 **ackley**：
-\[f(x, y) = -20 \exp\left(-0.2 \sqrt{0.5(x^2 + y^2)}\right) - \exp\left(0.5(\cos(2\pi x) + \cos(2\pi y))\right) + 20 + e\]
+
+$$f(x, y) = -20 \exp\left(-0.2 \sqrt{0.5(x^2 + y^2)}\right) - \exp\left(0.5(\cos(2\pi x) + \cos(2\pi y))\right) + 20 + e$$
 
 **complex**:
-\[f(x, y) = (x^3 - 3x^2 + 3y^2 - y^3)^2 + 0.1\cos(5x) + 0.1\sin(5y)\]
+
+$$f(x, y) = (x^3 - 3x^2 + 3y^2 - y^3)^2 + 0.1\cos(5x) + 0.1\sin(5y)$$
 
 **himmelblau**：
-\[f(x, y) = (x^2 + y - 11)^2 + (x + y^2 - 7)^2\]
+
+$$f(x, y) = (x^2 + y - 11)^2 + (x + y^2 - 7)^2$$
 
 **mccormick**:
-\[f(x, y) = \sin(x + y) + (x - y)^2 - 1.5x + 2.5y + 1\]
+
+$$f(x, y) = \sin(x + y) + (x - y)^2 - 1.5x + 2.5y + 1$$
 
 
 ## Experiment Result
