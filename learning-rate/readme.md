@@ -3,7 +3,14 @@
 more complex loss functions and interesting ideas are welcomed.
 
 ## Table of Contents
-[TOC]
+  *[TODO](#todo)
+  *[Some Complex function(x, y) visualization](#some-complex-functionx-y-visualization)
+  *[Experiment Result](#experiment-result)
+  *[Usage](#usage)
+  *[Citation](#citation)
+  *[Acknowledgments](#acknowledgments)
+  *[Contact With Me](#contact-with-me)
+  *[License](#license)
 
 
 ## TODO
@@ -27,7 +34,7 @@ In this repository, I will use the following complex functions to explore the be
 ### Formular of the functions
 
 **loss1**
-\[f(x, y) = x^2 + y^2\]
+$$ f(x, y) = x^2 + y^2 $$
 
 **loss2**
 \[f(x, y)=0.5x^2 + 10y^2 + x + 2y\]
